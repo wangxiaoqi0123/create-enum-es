@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "declaration": true, // 生成相应的 .d.ts文件
+    "declarationDir": "types", // 生成声明文件的输出路径
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": true,
+    "sourceMap": true,
+    "strict": false,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*.ts",
+  ],
+  "exclude": [
+    "src/**/__test__/*.test.ts",
+  ]
+}
