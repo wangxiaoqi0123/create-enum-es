@@ -1,20 +1,39 @@
 {
-  "name": "enum-factory",
-  "version": "1.0.0",
-  "description": "",
-  "main": "./dist/create-enum.es.js",
+  "name": "create-enum-es",
+  "version": "1.0.2",
+  "description": "处理前端枚举的工具方法，支持ts类型检测",
+  "main": "dist/create-enum.es.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "homepage": "https://github.com/wangxiaoqi0123/create-enum-es",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wangxiaoqi0123/create-enum-es"
+  },
+  "private": false,
+  "files": [
+    "dist/**.js",
+    "dist/index.d.ts",
+    "package.json",
+    "README.md"
+  ],
+  "keywords": [
+    "enum",
+    "枚举",
+    "TS"
+  ],
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c",
     "dev": "rollup -cw"
   },
-  "keywords": [],
   "author": "Xiou.Wang",
   "license": "ISC",
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.6",
     "rollup": "^4.18.1",
+    "rollup-plugin-dts": "^6.1.1",
     "typescript": "^5.5.3"
   }
 }

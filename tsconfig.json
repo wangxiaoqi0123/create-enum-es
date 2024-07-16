@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "declaration": true, // 生成相应的 .d.ts文件
-    "declarationDir": "types", // 生成声明文件的输出路径
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
