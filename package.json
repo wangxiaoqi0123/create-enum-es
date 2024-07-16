@@ -1,6 +1,6 @@
 {
   "name": "create-enum-es",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "处理前端枚举的工具方法，支持ts类型检测",
   "main": "dist/create-enum.es.js",
   "types": "dist/index.d.ts",

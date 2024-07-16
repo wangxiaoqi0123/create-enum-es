@@ -1,10 +1,10 @@
-```
-import { createEnum } from '../dist/emun-create.es.js';
+```ts
+import { createEnum } from 'create-enum-es';
 
 const enum1 = createEnum({
   On: [1, '开启'],
   Off: [0, '关闭'],
-})
+} as const);
 
 console.log(enum1.getVal('On')) // 1
 console.log(enum1.getValList('On', 'Off')) // [1, 0]
