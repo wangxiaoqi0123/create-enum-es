@@ -1,6 +1,6 @@
 {
   "name": "create-enum-es",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "处理前端枚举的工具方法，支持ts类型检测",
   "main": "dist/create-enum.es.js",
   "types": "dist/index.d.ts",
@@ -31,9 +31,14 @@
   "author": "Xiou.Wang",
   "license": "ISC",
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "rollup": "^4.18.1",
+    "rollup": "^4.45.1",
     "rollup-plugin-dts": "^6.1.1",
     "typescript": "^5.5.3"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21"
   }
 }

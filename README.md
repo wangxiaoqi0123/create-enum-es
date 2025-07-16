@@ -1,82 +1,65 @@
 ```ts
-import { createEnum } from 'create-enum-es';
+    import createEnum from 'create-enum-es';
 
-const enum1 = createEnum({
-  On: [1, '开启'],
-  Off: [0, '关闭'],
-} as const);
+    const base = createEnum({
+      'AA': [11, 'AA-'],
+      'BB': [22, 'BB-']
+    } as const)
 
-console.log(enum1.getVal('On')) // 1
-console.log(enum1.getValList('On', 'Off')) // [1, 0]
-console.log(enum1.getValList('On')) // [1]
-console.log(enum1.getValList()) // [1, 0]
-
-
-console.log(enum1.getValMap('On', 'Off')) // {On: 1, Off: 0}
-console.log(enum1.getValMap('Off')) // {Off: 0}
-console.log(enum1.getValMap()) // {On: 1, Off: 0}
-
-
-console.log(enum1.getName('On')) // 开启
-console.log(enum1.getNameByValue(enum1.Off)) // 关闭
-console.log(enum1.getName(enum1.On, { arguType: 'value' })) // 开启
+    console.log('base.options() :>> ', base.options());
+    // [
+    //   {
+    //     "value": 11,
+    //     "label": "AA-"
+    //   },
+    //   {
+    //     "value": 22,
+    //     "label": "BB-"
+    //   }
+    // ]
 
 
-console.log(enum1.getOptions())
-// [
-//     {
-//         "value": 1,
-//         "label": "开启"
-//     },
-//     {
-//         "value": 0,
-//         "label": "关闭"
-//     }
-// ]
-console.log(enum1.getOptions({ labelKey: 'name', valueKey: 'key' }))
-// [
-//     {
-//         "key": 1,
-//         "name": "开启"
-//     },
-//     {
-//         "key": 0,
-//         "name": "关闭"
-//     }
-// ]
-console.log(enum1.getOptions('On'))
-// [
-//     {
-//         "value": 1,
-//         "label": "开启"
-//     }
-// ]
-console.log(enum1.getOptions(enum1.On, { arguType: 'value' }))
-// [
-//     {
-//         "value": 1,
-//         "label": "开启"
-//     }
-// ]
-console.log(enum1.getOptionsByValues())
-// [
-//     {
-//         "value": 1,
-//         "label": "开启"
-//     },
-//     {
-//         "value": 0,
-//         "label": "关闭"
-//     }
-// ]
-console.log(enum1.getOptionsByValues(enum1.On, { labelKey: 'name', valueKey: 'key' }))
-// [
-//     {
-//         "key": 1,
-//         "name": "开启"
-//     }
-// ]
+    const enumInstance = createEnum({
+      'A': [1, 'A-', { a: 'axx' }],
+      'B': [2, 'B-', { b: 'bxx' }]
+    } as const)
+    const value = enumInstance.value('A')
+    console.log('value :>> ', value);
+    // 1
 
-console.log(enum1.check(enum1.On, 'On')) // true
+    const values = enumInstance.values()
+    console.log('values :>> ', values); 
+    // [1, 2]
+
+    const options = enumInstance.options()
+    console.log('options :>> ', options);
+    // [
+    //   {
+    //     "value": 1,
+    //     "label": "A-",
+    //     "extra": {
+    //       "a": "axx"
+    //     }
+    //   },
+    //   {
+    //     "value": 2,
+    //     "label": "B-",
+    //     "extra": {
+    //       "b": "bxx"
+    //     }
+    //   }
+    // ]
+
+    const label = enumInstance.label('A')
+    console.log('label :>> ', label); 
+    // 'A-'
+
+    const extra = enumInstance.extra('A')
+    console.log('extra :>> ', extra); 
+    // {"a": "axx"}
+
+    const check = enumInstance.check(1, 'A')
+    console.log('check :>> ', check); 
+    // true
 ```
 

@@ -1,5 +1,7 @@
 import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
+import resolve from "@rollup/plugin-node-resolve";
+import terser from "@rollup/plugin-terser";
 const name = "create-enum";
 
 export default [
@@ -29,6 +31,8 @@ export default [
         //输出目录
         outDir: "dist",
       }),
+      resolve(),
+      terser(),
     ],
   }, // 第二步将esm打包出的文件再打包到index.d.ts中去
   {
