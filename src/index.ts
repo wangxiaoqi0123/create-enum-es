@@ -3,12 +3,41 @@ import isArray from "lodash-es/isArray";
 import isEmpty from "lodash-es/isEmpty";
 import isPlainObject from "lodash-es/isPlainObject";
 
-type IEMap = Readonly<Record<any, readonly [any, any] | readonly [any, any, any]>>;
+/**
+ * 宽化类型
+ */
+type WidenLiteral<T> = T extends string ? string : T extends number ? number : T extends boolean ? boolean : T;
+
+/**
+ * 约束传参类型
+ */
+type IEMap = Readonly<Record<any, readonly [any, any, any?]>>;
+/**
+ * 枚举建
+ */
 type TEUnion<T extends IEMap> = keyof T;
+/**
+ * 枚举值（联合类型）
+ */
 type TEValue<T extends IEMap> = T[TEUnion<T>][0];
-type IEnum<T extends IEMap> = {
-  readonly [K in keyof T]: T[K] extends readonly [infer V, any] ? V : any;
-} & Enum<T>;
+/**
+ * 值
+ */
+type TValue<V, T extends IEMap> = WidenLiteral<T[V][0]>;
+/**
+ * 标签
+ */
+type TULabel<V, T extends IEMap> = WidenLiteral<T[V][1]>;
+type TVLabel<V, T extends IEMap> = WidenLiteral<Extract<T[keyof T], readonly [V, any, any?]>[1]>;
+/**
+ * 额外
+ */
+type TUExtra<V, T extends IEMap> = WidenLiteral<T[V][2]>;
+type TVExtra<V, T extends IEMap> = WidenLiteral<Extract<T[keyof T], readonly [V, any, any?]>[2]>;
+/**
+ * 枚举类型
+ */
+type IEnum<T extends IEMap> = { readonly [K in keyof T]: T[K][0] } & Enum<T>;
 
 /**
  * 判断枚举key列表是否有效
@@ -63,7 +92,7 @@ class Enum<T extends IEMap> {
    * @param {String} key 枚举KEY
    * @return {Number} 枚举值
    */
-  public value(key: TEUnion<T>): TEValue<T> {
+  public value<V extends TEUnion<T>>(key: V): TValue<V, T> {
     return this[key as string];
   }
 
@@ -72,7 +101,7 @@ class Enum<T extends IEMap> {
    * @param {Array} param 多个枚举KEY
    * @return {Array} {[枚举值]}
    */
-  public values(...args: TEUnion<T>[]): any | TEValue<T>[] {
+  public values<V extends TEUnion<T>>(...args: V[]): TValue<V, T>[] {
     let keys = Object.keys(this.__enumMap__) as TEUnion<T>[]; // 不传递返回所有
     if (judgEnumKeys(args)) {
       keys = Array.from(args);
@@ -102,7 +131,8 @@ class Enum<T extends IEMap> {
    * @param {String} keyOrVal 枚举KEY或枚举值
    * @return {String} 枚举名称
    */
-  public label(keyOrVal: TEUnion<T> | TEValue<T>): string;
+  public label<V extends TEUnion<T>>(key: V): TULabel<V, T>;
+  public label<V extends TEValue<T>>(val: V): TVLabel<V, T>;
   public label(keyOrVal: any): any;
   public label(keyOrVal) {
     return this.__enumLabelMap__[keyOrVal];
@@ -113,7 +143,8 @@ class Enum<T extends IEMap> {
    * @param {String} keyOrVal 枚举KEY或枚举值
    * @return {String} 枚举名称
    */
-  public extra(keyOrVal: TEUnion<T> | TEValue<T>): any;
+  public extra<V extends TEUnion<T>>(key: V): TUExtra<V, T>;
+  public extra<V extends TEValue<T>>(val: V): TVExtra<V, T>;
   public extra(keyOrVal: any): any;
   public extra(keyOrVal) {
     return this.__enumExtraMap__[keyOrVal];
