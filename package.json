@@ -38,7 +38,5 @@
     "rollup-plugin-dts": "^6.1.1",
     "typescript": "^5.5.3"
   },
-  "dependencies": {
-    "lodash-es": "^4.17.21"
-  }
+  "dependencies": {}
 }
